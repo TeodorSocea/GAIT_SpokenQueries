@@ -1,0 +1,35 @@
+@prefix gait: <http://example.org/gait#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+gait:Backend_Module a rdfs:Class ;
+    gait:integrates gait:Chatbot ;
+    gait:supports gait:SpeechRecognition ;
+    gait:uses gait:Database ;
+    rdfs:comment "Orchestrates query execution and communicates with GraphQL APIs" .
+
+gait:Chatbot a rdfs:Class ;
+    gait:interactsWith gait:NLP_Module ;
+    rdfs:comment "Handles user input and interacts with NLP module" .
+
+gait:Database a rdfs:Class ;
+    rdfs:comment "Stores GraphQL API links and schemas" .
+
+gait:Frontend_Module a rdfs:Class ;
+    rdfs:comment "Captures user queries and sends requests to backend" .
+
+gait:GAIT_System a rdfs:Class ;
+    gait:hasModule gait:Backend_Module,
+        gait:Frontend_Module,
+        gait:NLP_Module ;
+    rdfs:comment "A system for interacting with GraphQL APIs" .
+
+gait:NLP_Module a rdfs:Class ;
+    gait:utilizes gait:OpenAI_API ;
+    rdfs:comment "Processes user input and translates it into structured GraphQL queries" .
+
+gait:OpenAI_API a rdfs:Class ;
+    rdfs:comment "Used for advanced NLP query generation" .
+
+gait:SpeechRecognition a rdfs:Class ;
+    rdfs:comment "Converts audio input into text" .
+
