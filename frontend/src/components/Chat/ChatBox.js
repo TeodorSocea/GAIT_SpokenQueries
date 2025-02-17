@@ -7,12 +7,12 @@ import TypingIndicator from "./typing/TypingIndicator"; // Import the new typing
 import SpeechRecorder from "../SpeechRecorder/SpeechRecorder"; // Import SpeechRecorder
 import { textMessage } from "./messageData";
 import "./styles/ChatBox.css";
-
+import ModelToggle from "../ToggleButton/ModelToggle";
 function ChatBox() {
   const [messages, setMessages] = useState([{ text: textMessage, sender: "bot" }]);
   const [isTyping, setIsTyping] = useState(false); // Track if the bot is "typing"
   const messagesEndRef = useRef(null);
-
+  const [selectedModel, setSelectedModel] = useState("Open-Ai");
   // Scrolls down to the latest message
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -38,7 +38,10 @@ function ChatBox() {
         const response = await fetch("http://127.0.0.1:5000/chat", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message: text }),
+          body: JSON.stringify({ 
+            message: text,
+            model: selectedModel
+           }),
         });
 
         const data = await response.json();
@@ -78,6 +81,7 @@ function ChatBox() {
     };
   return (
     <div className="chat-container">
+      <ModelToggle selectedModel={selectedModel} setSelectedModel={setSelectedModel} />
       <div className="messages-container">
         {messages.map((msg, index) => (
           <div key={index} className={`chat-message ${msg.sender === "You" ? "you" : "bot"}`}>

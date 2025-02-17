@@ -1,0 +1,34 @@
+.model-toggle-container {
+    position: fixed;
+    top: 10px; /* Adjust as needed */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 50;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .model-toggle-button {
+    padding: 10px 10px;
+    color: #000000;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 10px;
+    font-weight: bold;
+    margin: 0 0px;
+  }
+  
+  .model-toggle-button.active {
+    background: #0078ff; /* Blue for active */
+  }
+  
+  .model-toggle-button.inactive {
+    background: #cccccc; /* Gray for inactive */
+  }
+  
+  .model-toggle-button:hover {
+    background: #005bbd;
+  }
+  

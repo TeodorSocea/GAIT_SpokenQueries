@@ -4,17 +4,21 @@
 .chat-container {
   display: flex;
   flex-direction: column;
-  width: 95vw;  /* 95% of the viewport width */
-  height: 95vh; /* 95% of the viewport height */
+
+  width: 100vw;   /* Full viewport width */
+  height: 100vh;  /* Full viewport height */
+  top: 0;
+  left: 0;
+  border-radius: 0; /* Remove rounded corners */
+  margin: 0;
+
   background-color: #1e1e1e; /* Dark background */
-  padding: 20px;
-  margin: auto;  /* Center the chatbox */
+ /* Center the chatbox */
   border-radius: 10px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4); /* Stronger shadow for dark mode */
   overflow: hidden;
   position: fixed;
-  top: 2.5vh; /* Center vertically */
-  left: 2.5vw; /* Center horizontally */
+  
   color: #ffffff; /* Light text */
 }
 
