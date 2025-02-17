@@ -4,21 +4,24 @@ import "./styles/SpeechRecorder.css";  // Import the CSS file
 const SpeechRecorder = ({ onSpeechResult }) => {
   const [recording, setRecording] = useState(false);
   const [hasPermission, setHasPermission] = useState(null);
+  const [isSupported, setIsSupported] = useState(true);
   const [mediaRecorder, setMediaRecorder] = useState(null);
   const streamRef = useRef(null);
 
-  // Request microphone permission on component mount
   useEffect(() => {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      setIsSupported(false);
+      return;
+    }
+
     navigator.mediaDevices
       .getUserMedia({ audio: true })
       .then(() => setHasPermission(true))
       .catch(() => setHasPermission(false));
   }, []);
 
-  // Toggle Recording (Start & Stop)
   const toggleRecording = async () => {
-    if (hasPermission === false) return;
-
+    if (!isSupported || hasPermission === false) return;
     if (!recording) {
       try {
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -40,18 +43,17 @@ const SpeechRecorder = ({ onSpeechResult }) => {
       }
     } else {
       mediaRecorder?.stop();
-      streamRef.current.getTracks().forEach((track) => track.stop());
+      streamRef.current?.getTracks().forEach((track) => track.stop());
       setRecording(false);
     }
   };
 
-  // Send Recorded Audio to Flask Server
   const sendAudioToServer = async (blob) => {
     const formData = new FormData();
     formData.append("file", blob, "audio.wav");
 
     try {
-      const response = await fetch("http://127.0.0.1:5000/speech-to-text", {
+      const response = await fetch("http://graphqlinteractive.tools:5005/speech-to-text", {
         method: "POST",
         body: formData,
       });
@@ -63,9 +65,10 @@ const SpeechRecorder = ({ onSpeechResult }) => {
     }
   };
 
-  // Determine the correct class to apply based on state
   let buttonClass = "speech-recorder-button";
-  if (hasPermission === false) {
+  if (!isSupported) {
+    buttonClass += " unsupported";
+  } else if (hasPermission === false) {
     buttonClass += " disabled";
   } else if (recording) {
     buttonClass += " stop";
@@ -77,9 +80,9 @@ const SpeechRecorder = ({ onSpeechResult }) => {
     <button
       className={buttonClass}
       onClick={toggleRecording}
-      disabled={hasPermission === false}
+      disabled={!isSupported || hasPermission === false}
     >
-      {hasPermission === false ? "🚫 No Mic" : recording ? "⏹️ Stop" : "🎤 Start"}
+      {!isSupported ? "❌ Not Supported" : hasPermission === false ? "🚫 No Mic" : recording ? "⏹️ Stop" : "🎤 Start"}
     </button>
   );
 };

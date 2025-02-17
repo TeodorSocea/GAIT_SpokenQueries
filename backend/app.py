@@ -12,9 +12,6 @@ CORS(app)
 
 # Initialize database
 init_db()
-os.environ["FFMPEG_BINARY"] = "C:\\ffmpeg\\bin\\ffmpeg.exe"
-os.environ["FFPROBE_BINARY"] = "C:\\ffmpeg\\bin\\ffprobe.exe"
-
 
 UPLOAD_FOLDER = "uploads"
 CONVERTED_FOLDER = "converted_audios"
@@ -86,6 +83,7 @@ def speech_to_text():
         with sr.AudioFile(correct_wav_path) as source:
             audio_data = recognizer.record(source)
             text = recognizer.recognize_google(audio_data)
+            print(text)
 
             # ✅ Return the converted audio file path along with text
             return jsonify({
@@ -93,6 +91,7 @@ def speech_to_text():
                 "converted_audio_path": correct_wav_path  # Path to the saved converted file
             })
     except sr.UnknownValueError:
+        print(sr)
         return jsonify({"text": "Could not understand audio"}), 400
     except sr.RequestError:
         return jsonify({"text": "Speech recognition API unavailable"}), 500
@@ -100,4 +99,4 @@ def speech_to_text():
 
 if __name__ == "__main__":
     print("[DEBUG] Flask app is starting...")
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0", port=5005)

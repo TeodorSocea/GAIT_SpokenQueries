@@ -8,7 +8,7 @@ class Custom:
         """
         Converts a natural language query into a GraphQL query for the Countries API.
         """
-        natural_language_query = natural_language_query.lower()
+        natural_language_query = user_input.lower()
         
         # Define mappings for known entities
         country_codes = {
