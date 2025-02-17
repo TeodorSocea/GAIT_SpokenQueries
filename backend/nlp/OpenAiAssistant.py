@@ -3,11 +3,8 @@ import json
 import os
 import re
 import json
-from gql import Client, gql
-from gql.transport.requests import RequestsHTTPTransport
-
 class OpenAIAssistant:
-    def __init__(self, api_key: str, instructions_file: str, model="gpt-4-turbo"):
+    def __init__(self, schema):
         """
         Initializes the OpenAIAssistant by reading instructions from a file
         and creating an Assistant via OpenAI's API.
@@ -16,12 +13,19 @@ class OpenAIAssistant:
         :param instructions_file: Path to the instructions file (text or JSON)
         :param model: The OpenAI model to use (default: "gpt-4-turbo")
         """
-        openai.api_key = api_key
+        openai.api_key = os.environ.get("OPENAI_API_KEY")
+        instructions_file = "instructions.txt"
+        model = "gpt-4-turbo"
+        # self.headers = {
+        #     'OpenAI-Beta': 'assistants=v2'  # Include the header for the beta version
+        # }
+        self.schema = schema
         self.model = model
         self.instructions = self._load_instructions(instructions_file)
         self.assistant_id = self._create_or_fetch_assistant()
         self.thread_id = None  # Stores the thread for conversations
-
+        #Loading schema
+        self.generate_graphql_query(f"Describe the schema: {self.schema}")
     def _load_instructions(self, filename: str) -> str:
         """Loads assistant instructions from a file relative to the script's location."""
         script_dir = os.path.dirname(os.path.abspath(__file__))  # Get the script's directory
@@ -49,8 +53,10 @@ class OpenAIAssistant:
         response = openai.beta.threads.create()
         self.thread_id = response.id
         print(f"Started a new conversation (Thread ID: {self.thread_id})")
+        #send the schema first
 
-    def chat(self, user_message: str):
+
+    def generate_graphql_query(self, user_message: str):
         """
         Sends a message to the assistant and returns the response.
 
@@ -60,11 +66,13 @@ class OpenAIAssistant:
         if self.thread_id is None:
             self.start_conversation()
 
+
         # Add message to thread
         openai.beta.threads.messages.create(
             thread_id=self.thread_id,
             role="user",
-            content=user_message
+            content=user_message,
+
         )
 
         # Run assistant to get response
@@ -85,9 +93,6 @@ class OpenAIAssistant:
 
         # Fetch messages from the thread
         messages = openai.beta.threads.messages.list(thread_id=self.thread_id)
-        response_message = messages.data[0].content[0].text.value  # Latest response
+        response_message = messages.data[0].content[0].text.value # Latest response
 
         return response_message
-
-    import requests
-    import spacy

@@ -1,11 +1,12 @@
-from nlp.OpenAiWrapper import OpenAiWrapper
+#from nlp.OpenAiWrapper import OpenAiWrapper
+from nlp.OpenAiAssistant import OpenAIAssistant
 from nlp.Custom import Custom
 
 class NLPInterface:
     def __init__(self, model_type, user_input, schema=None):
         # Define model classes dynamically
         model_classes = {
-            "Open-Ai": OpenAiWrapper,
+            "Open-Ai": OpenAIAssistant,
             "Custom": Custom
         }
 
