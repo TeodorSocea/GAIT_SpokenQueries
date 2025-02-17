@@ -26,8 +26,10 @@ os.makedirs(CONVERTED_FOLDER, exist_ok=True)  # Create folder to store converted
 def chat():
     try:
         user_message = request.json.get("message", "").strip()
+        selected_model = request.json.get("model", "").strip()
         print(f"[DEBUG] User message received: {user_message}")
 
+        print(f"[DEBUG] User model received: {selected_model}")
         if not user_message:
             print("[DEBUG] No message provided by the user.")
             return jsonify({"error": "No message provided"}), 400
@@ -37,7 +39,7 @@ def chat():
         print(f"[DEBUG] Current stored GraphQL link: {stored_link}")
 
         # Create a chatbot instance (pass stored link & schema)
-        bot = ChatBot(user_message, stored_link, stored_schema)
+        bot = ChatBot(user_message, selected_model, stored_link, stored_schema)
 
         # Process response
         bot_responses = bot.get_response()

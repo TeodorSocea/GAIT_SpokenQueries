@@ -1,11 +1,11 @@
 import requests
 import re
 
-from nlp.OpenAiHelper import generate_graphql_query
+from nlp.NLPInterface import NLPInterface
 
 
 class ChatBot:
-    def __init__(self, user_message, stored_link="", stored_schema=None):
+    def __init__(self, user_message, selected_model, stored_link="", stored_schema=None):
         """
         Initialize chatbot with user message and existing stored link and schema.
         """
@@ -14,8 +14,10 @@ class ChatBot:
         self.stored_schema = stored_schema  # Stored GraphQL schema from SQLite
         self.validated_link = None  # Holds a new valid GraphQL link if found
         self.validated_schema = None  # Holds the schema if verified
+        self.selected_model = selected_model  # Holds the schema if verified
 
         print(f"[DEBUG] ChatBot initialized with message: {self.user_message}")
+        print(f"[DEBUG] ChatBot initialized with model: {self.selected_model}")
         print(f"[DEBUG] Stored GraphQL link at init: {self.stored_link}")
 
     def extract_links(self):
@@ -134,11 +136,14 @@ class ChatBot:
                     ]
                 }
             else:
-                proccesed_by_nlp = generate_graphql_query(self.stored_schema, self.user_message)
+                nlp_interface = NLPInterface(model_type=self.selected_model, user_input=self.user_message, schema=self.stored_schema)
+
+                proccesed_by_nlp = nlp_interface.generate_graphql_query()
+
                 return {
                     "responses": [
-                        {"type": "text", "message": f"We are using the stored GraphQL API: {self.stored_link}"},
-                        {"type": "text", "message": f"Processing your request: {self.user_message}"},
+                        {"type": "text", "message": f"GraphQL API[{self.stored_link}]"},
+                        #{"type": "text", "message": f"Model: {self.selected_model}"},
                         {"type": "graphql", "message": f"{proccesed_by_nlp}"}
                     ]
                 }
