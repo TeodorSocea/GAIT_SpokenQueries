@@ -1,0 +1,33 @@
+/* ========================= */
+/* 🔹 Fix for GraphQL Query Display */
+/* ========================= */
+.graphql-query-container {
+  background: #1e1e1e; /* Dark background */
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 5px;
+  max-width: 100%; /* Ensures it does not overflow */
+  overflow-x: auto; /* Allows horizontal scrolling if needed */
+  font-size: 14px;
+  white-space: pre-wrap; /* Ensures long lines wrap properly */
+  word-break: break-word; /* Prevents breaking layout */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Ensures GraphQL Queries stay inside message bubble */
+.chat-message.bot .graphql-query-container {
+  width: 100%; /* Ensures it fills the message bubble */
+  max-width: 100%; /* Prevents it from overflowing */
+}
+
+/* Additional fix for syntax highlighter to prevent overflow */
+.graphql-query-container pre {
+  margin: 0;
+  padding: 0;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-width: 100%;
+}

@@ -1,0 +1,34 @@
+# General ignores
+.DS_Store
+Thumbs.db
+node_modules/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.log
+.env
+
+# Exclude files from the frontend (React)
+frontend/node_modules/
+frontend/build/
+frontend/.parcel-cache/
+frontend/.next/
+frontend/dist/
+frontend/.eslintcache
+frontend/.turbo/
+frontend/yarn.lock
+frontend/package-lock.json
+
+# Exclude files from the backend (Python)
+backend/venv/
+backend/__pycache__/
+backend/*.pyc
+backend/*.pyo
+backend/.env
+backend/db.sqlite3
+backend/migrations/__pycache__/
+backend/.pytest_cache/
+backend/.mypy_cache/
+backend/.coverage
+backend/htmlcov/

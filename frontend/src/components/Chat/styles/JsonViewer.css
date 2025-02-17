@@ -1,0 +1,11 @@
+.json-viewer-container {
+    background: #282c34; /* Dark background */
+    padding: 10px;
+    border-radius: 8px;
+    color: #ffffff;
+    margin-top: 5px;
+    max-width: 80%;  /* Matches the message bubble width */
+    overflow-x: auto; /* Allows horizontal scrolling */
+    word-wrap: break-word;
+    white-space: pre-wrap;
+}

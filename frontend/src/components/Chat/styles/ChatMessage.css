@@ -1,0 +1,17 @@
+.my-message {
+  background-color: #0078ff; /* Blue for user messages */
+  color: #ffffff; /* White text for contrast */
+  padding: 8px;
+  border-radius: 8px;
+  max-width: 80%;
+  align-self: flex-end; /* Align user messages to the right */
+}
+
+.other-message {
+  background-color: #333333; /* Dark gray for bot messages */
+  color: #ffffff; /* White text for readability */
+  padding: 8px;
+  border-radius: 8px;
+  max-width: 80%;
+  align-self: flex-start; /* Align bot messages to the left */
+}
