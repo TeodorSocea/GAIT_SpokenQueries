@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import "./styles/SpeechRecorder.css";  // Import the CSS file
 
 const SpeechRecorder = ({ onSpeechResult }) => {
   const [recording, setRecording] = useState(false);
@@ -62,19 +63,21 @@ const SpeechRecorder = ({ onSpeechResult }) => {
     }
   };
 
+  // Determine the correct class to apply based on state
+  let buttonClass = "speech-recorder-button";
+  if (hasPermission === false) {
+    buttonClass += " disabled";
+  } else if (recording) {
+    buttonClass += " stop";
+  } else {
+    buttonClass += " start";
+  }
+
   return (
     <button
+      className={buttonClass}
       onClick={toggleRecording}
       disabled={hasPermission === false}
-      style={{
-        padding: "10px",
-        borderRadius: "5px",
-        border: "none",
-        backgroundColor: hasPermission === false ? "gray" : recording ? "red" : "#0084FF",
-        color: "#fff",
-        cursor: hasPermission === false ? "not-allowed" : "pointer",
-        fontSize: "16px",
-      }}
     >
       {hasPermission === false ? "🚫 No Mic" : recording ? "⏹️ Stop" : "🎤 Start"}
     </button>

@@ -1,0 +1,25 @@
+/* SpeechRecorder.css */
+
+.speech-recorder-button {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .speech-recorder-button.disabled {
+    background-color: gray;
+    cursor: not-allowed;
+  }
+  
+  .speech-recorder-button.start {
+    background-color: #0084FF;
+  }
+  
+  .speech-recorder-button.stop {
+    background-color: red;
+  }
+  
