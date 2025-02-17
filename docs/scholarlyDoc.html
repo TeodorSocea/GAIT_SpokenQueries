@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GAIT GraphQL API Interaction Tool - SRS</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Software Requirements Specification (SRS)</h1>
+    <h2>GAIT GraphQL API Interaction Tool</h2>
+    
+    <h3>Authors:</h3>
+    <ul>
+        <li>Claudiu Strîmbei</li>
+        <li>Valentin Todireanu</li>
+        <li>Teodor Socea</li>
+    </ul>
+
+    <h3>Contents</h3>
+    <ul>
+        <li><a href="#1">1. Introduction</a></li>
+        <ul>
+            <li><a href="#1.1">1.1 Purpose</a></li>
+            <li><a href="#1.2">1.2 Document Conventions</a></li>
+            <li><a href="#1.3">1.3 Intended Audience and Reading Suggestions</a></li>
+        </ul>
+        <li><a href="#2">2. Overall Description</a></li>
+        <ul>
+            <li><a href="#2.1">2.1 Product Perspective</a></li>
+            <li><a href="#2.2">2.2 Product Functions</a></li>
+        </ul>
+        <li><a href="#3">3. External Interface Requirements</a></li>
+        <ul>
+            <li><a href="#3.1">3.1 User Interfaces</a></li>
+            <li><a href="#3.2">3.2 Software Interfaces</a></li>
+        </ul>
+        <li><a href="#4">4. System Features</a></li>
+        <ul>
+            <li><a href="#4.1">4.1 GraphQL Query Generation</a></li>
+            <li><a href="#4.2">4.2 Backend Module</a></li>
+            <ul>
+                <li><a href="#4.2.1">4.2.1 Architecture</a></li>
+                <li><a href="#4.2.2">4.2.2 Flask API Endpoints</a></li>
+                <li><a href="#4.2.3">4.2.3 Chatbot Module</a></li>
+                <li><a href="#4.2.4">4.2.4 NLP Module</a></li>
+                <li><a href="#4.2.5">4.2.5 Database Module</a></li>
+                <li><a href="#4.2.6">4.2.6 Speech-to-Text Module</a></li>
+                <li><a href="#4.2.7">4.2.7 External Integrations</a></li>
+            </ul>
+        </ul>
+        <li><a href="#5">5. Nonfunctional Requirements</a></li>
+        <ul>
+            <li><a href="#5.1">5.1 Performance Requirements</a></li>
+            <li><a href="#5.2">5.2 Safety Requirements</a></li>
+            <li><a href="#5.3">5.3 Security</a></li>
+            <li><a href="#5.4">5.4 Software Quality Attributes</a></li>
+            <li><a href="#5.5">5.5 Business Rules</a></li>
+        </ul>
+        <li><a href="#6">6. Other Requirements</a></li>
+        <li><a href="#7">7. Future Directions</a></li>
+        <li><a href="#8">8. Conclusion</a></li>
+    </ul>
+    
+    <h2 id="1">1. Introduction</h2>
+    <h3 id="1.1">1.1 Purpose</h3>
+    <p>The <strong>GAIT GraphQL API Interaction Tool</strong> facilitates seamless interaction with GraphQL APIs by allowing users to construct, execute, and optimize queries efficiently. It integrates Natural Language Processing (NLP) to interpret user input in natural language and convert it into structured GraphQL requests.</p>
+    
+    <h3 id="1.2">1.2 Document Conventions</h3>
+    <p>This document follows IEEE 830-1998 standard conventions for Software Requirements Specification (SRS). The following typographical conventions are used:</p>
+    <ul>
+        <li><strong>Bold</strong> for section titles and key terms.</li>
+        <li><code>Monospace</code> for code snippets and API endpoints.</li>
+        <li><em>Italics</em> for emphasis.</li>
+    </ul>
+    
+    <h3 id="1.3">1.3 Intended Audience and Reading Suggestions</h3>
+    <p>This document is intended for:</p>
+    <ul>
+        <li><strong>Developers:</strong> To understand system architecture, API endpoints, and coding conventions.</li>
+        <li><strong>Project Managers:</strong> To track requirements and development progress.</li>
+        <li><strong>Researchers:</strong> To explore how NLP can be used in GraphQL query generation.</li>
+        <li><strong>Testers:</strong> To verify compliance with specifications and performance requirements.</li>
+    </ul>
+    
+    <h2 id="2">2. Overall Description</h2>
+    <h3 id="2.1">2.1 Product Perspective</h3>
+    <p>GAIT is an independent system that interacts with external GraphQL APIs. It consists of three main modules:</p>
+    <ul>
+        <li><strong>Frontend (React.js):</strong> Captures user queries and displays results.</li>
+        <li><strong>Backend (Flask):</strong> Orchestrates query execution and manages API requests.</li>
+        <li><strong>NLP Module:</strong> Converts natural language input into structured GraphQL queries.</li>
+    </ul>
+    
+    <h3 id="2.2">2.2 Product Functions</h3>
+    <p>The system provides:</p>
+    <ul>
+        <li><strong>GraphQL Query Generation:</strong> NLP-based conversion from natural language to GraphQL.</li>
+        <li><strong>Schema Exploration:</strong> Introspection query execution.</li>
+        <li><strong>Frontend Interface:</strong> User-friendly interaction and query execution.</li>
+        <li><strong>Speech-to-Text Conversion:</strong> Audio-based query support.</li>
+    </ul>
+    
+    <h2 id="3">3. External Interface Requirements</h2>
+    <h3 id="3.1">3.1 User Interfaces</h3>
+    <p>Frontend: React.js-based interactive UI.</p>
+    <h3 id="3.2">3.2 Software Interfaces</h3>
+    <p>Flask REST API, SQLite Database, and OpenAI API for NLP query generation.</p>
+    
+    <h2 id="4">4. System Features</h2>
+    <h3 id="4.1">4.1 GraphQL Query Generation</h3>
+    <p><strong>Description:</strong> Converts natural language input into GraphQL queries.</p>
+    <p><strong>Priority:</strong> High</p>
+    <ul>
+        <li>System <strong>must</strong> validate user input.</li>
+        <li>System <strong>must</strong> generate syntactically correct GraphQL queries.</li>
+        <li>System <strong>should</strong> provide suggestions for incorrect inputs.</li>
+    </ul>
+    
+    <h3 id="4.2">4.2 Backend Module</h3>
+    <h4 id="4.2.1">4.2.1 Architecture</h4>
+    <ul>
+        <li>Flask API: Handles incoming HTTP requests, routes them to the appropriate modules, and returns processed responses.</li>
+        <li>Chatbot Module: Parses user input, extracts intent, and dynamically generates GraphQL queries based on the stored schema.</li>
+        <li>NLP Module: Uses OpenAI models to process user messages and convert natural language queries into structured GraphQL queries.</li>
+        <li>Database Module: Utilizes SQLite for persisting GraphQL API links and schemas, allowing efficient retrieval and updates.</li>
+        <li>Speech-to-Text Module: Converts audio files to text using SpeechRecognition and pydub, enabling voice-based query execution.</li>
+    </ul>
+    
+    <h4 id="4.2.2">4.2.2 Flask API Endpoints</h4>
+    <ul>
+        <li><code>/chat (POST)</code>: Receives user messages, processes them via the chatbot, and returns GraphQL queries or responses.</li>
+        <li><code>/speech-to-text (POST)</code>: Accepts audio files, converts them into text, and returns the transcribed query for further processing.</li>
+    </ul>
+    
+    <h4 id="4.2.3">4.2.3 Chatbot Module</h4>
+    <p>Upon receiving a user query, the chatbot first checks for GraphQL links and schemas in the database. If no schema is found, it prompts the user for a GraphQL API link. If a schema is present, it utilizes NLP or rule-based methods to generate a GraphQL query.</p>
+    
+    <h4 id="4.2.4">4.2.4 NLP Module</h4>
+    <p>The NLP Module employs OpenAI's GPT-based models to process natural language queries. It enhances query accuracy by leveraging schema context, recognizing entity references, and dynamically adjusting query structures.</p>
+    
+    <h4 id="4.2.5">4.2.5 Database Module</h4>
+    <p>Uses SQLite to store GraphQL API links and schemas. When the server restarts, it clears outdated data and maintains a fresh state for new queries.</p>
+    <pre><code>CREATE TABLE IF NOT EXISTS graphql_links (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    link TEXT UNIQUE NOT NULL,
+    schema TEXT NOT NULL
+);</code></pre>
+    
+    <h4 id="4.2.6">4.2.6 Speech-to-Text Module</h4>
+    <p>Processes audio files submitted by users, converting them to text via Google's speech recognition API. The transcribed text is then processed similarly to standard text queries.</p>
+    
+    <h4 id="4.2.7">4.2.7 External Integrations</h4>
+    <p>GAIT integrates with OpenAI for NLP-driven query processing, utilizing Flask for backend orchestration. It communicates with external GraphQL APIs via introspection queries and dynamically constructs GraphQL requests based on user input.</p>
+    
+    <h2 id="5">5. Nonfunctional Requirements</h2>
+    <h3 id="5.1">5.1 Performance Requirements</h3>
+    <ul>
+        <li><strong>Response Time:</strong> The system is designed to process and respond to user queries within 5 seconds under standard operational conditions.</li>
+        <li><strong>Scalability:</strong> The architecture supports concurrent handling of multiple user requests without performance degradation, ensuring consistent response times.</li>
+    </ul>
+    
+    <h3 id="5.2">5.2 Safety Requirements</h3>
+    <ul>
+        <li><strong>Data Integrity:</strong> The system ensures that all data transactions are accurate and consistent, preventing data corruption during processing and storage.</li>
+        <li><strong>Error Handling:</strong> Robust error detection and handling mechanisms are implemented to maintain system stability and provide informative feedback to users.</li>
+    </ul>
+    
+    <h3 id="5.3">5.3 Security Requirements</h3>
+    <ul>
+        <li><strong>Data Protection:</strong> Sensitive information, including API keys and user data, is encrypted both in transit and at rest, adhering to industry-standard security protocols.</li>
+        <li><strong>Input Validation:</strong> All user inputs are rigorously validated and sanitized to prevent security vulnerabilities such as injection attacks.</li>
+    </ul>
+    
+    <h3 id="5.4">5.4 Software Quality Attributes</h3>
+    <ul>
+        <li><strong>Modularity:</strong> The system's architecture is modular, with distinct components for the frontend, backend, and NLP functionalities, facilitating ease of maintenance and scalability.</li>
+        <li><strong>Reliability:</strong> The system is engineered to provide consistent and dependable services, with redundancy and failover mechanisms in place to minimize downtime.</li>
+        <li><strong>Usability:</strong> The user interface is designed to be intuitive and user-friendly, ensuring that users can navigate and utilize the system's features with minimal learning curve.</li>
+        <li><strong>Maintainability:</strong> Codebases for each module adhere to clean coding practices and are well-documented, enabling efficient updates and troubleshooting.</li>
+    </ul>
+    
+    <h3 id="5.5">5.5 Business Rules</h3>
+    <ul>
+        <li><strong>Licensing Compliance:</strong> The system and its components comply with all relevant software licenses, ensuring legal usage of third-party libraries and tools.</li>
+        <li><strong>Usage Monitoring:</strong> The system includes logging and monitoring features to track usage patterns, aiding in performance tuning and future enhancements.</li>
+        <li><strong>Resource Management:</strong> Efficient management of computational resources is prioritized to optimize operational costs, especially when deploying in cloud environments.</li>
+    </ul>
+    
+    <h2 id="6">6. Other Requirements</h2>
+    <ul>
+        <li><strong>Internationalization:</strong> Future support for multiple languages.</li>
+        <li><strong>Extensibility:</strong> Support for additional NLP models.</li>
+    </ul>
+
+    <h2 id="7">7. Future Directions</h2>
+    <ul>
+        <li>Additional GraphQL API authentication methods</li>
+        <li>Advanced NLP model integration</li>
+    </ul>
+    
+    <h2 id="8">8. Conclusion</h2>
+    <p>GAIT enhances GraphQL query interaction using NLP, making APIs more accessible. Future updates will focus on improving NLP accuracy and expanding API support.</p>
+</body>
+</html>
